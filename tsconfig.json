@@ -26,6 +26,11 @@
  // "importHelpers": true,                 /* Import emit helpers from 'tslib'. */
  // "downlevelIteration": true,            /* Provide full support for iterables in 'for-of', spread, and destructuring when targeting 'ES5' or 'ES3'. */
  "isolatedModules": true /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */,
+ "paths": {
+  "@components/*": ["app/shared/components/*"],
+  "@shared/*": ["app/shared/*"],
+  "@tvSeries/*": ["app/*/index", "app/*"],
+},
  "baseUrl": ".",
  /* Strict Type-Checking Options */
  "strict": true /* Enable all strict type-checking options. */,
@@ -64,5 +69,12 @@
  // "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
  // "emitDecoratorMetadata": true,    
     /* Completeness */
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js"
+  ],
+  "include": ["app"]
 }

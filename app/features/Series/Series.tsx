@@ -1,4 +1,11 @@
-import {FlatList, RefreshControl, StyleSheet, Text, View} from 'react-native';
+import {
+  FlatList,
+  RefreshControl,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React from 'react';
 import Pagination from '@components/Pagination/Pagination';
 import {useSeriesQuery} from '@shared/hooks/useSeriesQuery';
@@ -21,7 +28,7 @@ interface Props {
 
 const Series: React.FC<Props> = ({navigation}) => {
   const [currPage, setCurrPage] = useState(1);
-  const [searchString, setSearchString] = useState<null | string>(null);
+  const [searchString, setSearchString] = useState<undefined | string>();
 
   const {error, loading, data, refetch} = useSeriesQuery(
     currPage,
@@ -67,7 +74,6 @@ const Series: React.FC<Props> = ({navigation}) => {
     if (data) {
       return (
         <FlatList
-          refreshControl={<RefreshControl onRefresh={() => refetch()} />}
           renderItem={renderItem}
           data={data}
           keyExtractor={keyExtractor}
@@ -86,45 +92,50 @@ const Series: React.FC<Props> = ({navigation}) => {
   };
 
   return (
-    <Container style={styles.container}>
-      <View style={styles.logo}>
-        <VectorIcon
-          size={25}
-          name="tv"
-          color="#fff"
-          groupName="Feather"
-          style={{marginRight: 10}}
-        />
-        <Text style={styles.logoText}>tvSeries</Text>
-      </View>
-      <View style={{paddingVertical: 20}}>
-        <CustomSearchBar
-          value={searchString}
-          onClear={() => setSearchString(null)}
-          onChange={text => setSearchString(text)}
-        />
-      </View>
-      <View style={{flex: 1}}>{renderData()}</View>
-      <View style={{justifyContent: 'flex-end', paddingVertical: 10}}>
-        {isEmpty(searchString) && (
-          <Pagination
-            visiblePageLength={5}
-            currPage={currPage}
-            setCurrPage={setCurrPage}
+    <SafeAreaView style={styles.safeArea}>
+      <Container style={styles.container}>
+        <View style={styles.logo}>
+          <VectorIcon
+            size={25}
+            name="tv"
+            color="#fff"
+            groupName="Feather"
+            style={{marginRight: 10}}
           />
-        )}
-      </View>
-    </Container>
+          <Text style={styles.logoText}>tvSeries</Text>
+        </View>
+        <View style={{paddingVertical: 20}}>
+          <CustomSearchBar
+            value={searchString}
+            onClear={() => setSearchString(undefined)}
+            onChange={text => setSearchString(text)}
+          />
+        </View>
+        <View style={{flex: 1}}>{renderData()}</View>
+        <View style={styles.pagination}>
+          {isEmpty(searchString) && (
+            <Pagination
+              visiblePageLength={5}
+              currPage={currPage}
+              setCurrPage={setCurrPage}
+            />
+          )}
+        </View>
+      </Container>
+    </SafeAreaView>
   );
 };
 
 export default Series;
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
     backgroundColor: constants.theme.main,
-    paddingHorizontal: 20,
+  },
+  container: {
+    flex: 1,
+    paddingHorizontal: 10,
     paddingTop: 20,
   },
 
@@ -138,5 +149,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+
+  pagination: {
+    justifyContent: 'flex-end',
+    paddingVertical: 10,
   },
 });

@@ -117,13 +117,11 @@ const styles = StyleSheet.create({
     color: constants.colors.GRAY,
     fontWeight: '500',
     fontSize: 12,
-    fontFamily: 'Roboto',
   },
 
   summary: {
     fontWeight: '500',
     fontSize: 13,
-    fontFamily: 'Roboto',
     color: '#fff',
   },
 
@@ -140,7 +138,6 @@ const styles = StyleSheet.create({
     color: constants.colors.WHITE,
     fontWeight: '500',
     fontSize: 11,
-    fontFamily: 'Roboto',
     letterSpacing: 1,
   },
 
@@ -162,7 +159,6 @@ const styles = StyleSheet.create({
   mainButtonText: {
     fontWeight: '500',
     fontSize: 13,
-    fontFamily: 'Roboto',
     color: '#000',
   },
 });

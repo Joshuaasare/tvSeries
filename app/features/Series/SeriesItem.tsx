@@ -125,7 +125,6 @@ const styles = StyleSheet.create({
     color: constants.colors.GRAY,
     fontWeight: '500',
     fontSize: 11,
-    fontFamily: 'Roboto',
   },
 
   detailButton: {
@@ -141,7 +140,6 @@ const styles = StyleSheet.create({
     color: constants.colors.WHITE,
     fontWeight: '500',
     fontSize: 8,
-    fontFamily: 'Roboto',
     letterSpacing: 1,
   },
 

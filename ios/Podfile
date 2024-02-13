@@ -29,7 +29,26 @@ target 'tvSeries' do
   end
 
   post_install do |installer|
-    react_native_post_install(installer)
+    react_native_post_install(
+      installer,
+      # Set `mac_catalyst_enabled` to `true` in order to apply patches
+      # necessary for Mac Catalyst builds
+      # :mac_catalyst_enabled => false
+    )
+    installer.pods_project.build_configurations.each do |config|
+      config.build_settings['VALID_ARCHS'] = 'arm64 armv7 x86_64'
+      config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+    end
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
+  # Add these lines for Xcode 14 builds
+  installer.generated_projects.each do |project|
+    project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+            config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.4'
+        end
+    end
+  end
+  # End of added lines
   end
 end

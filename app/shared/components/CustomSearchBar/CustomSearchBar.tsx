@@ -12,12 +12,12 @@ import {
 } from 'react-native';
 
 export interface Props {
-  value: string;
+  value?: string;
   onSearch?: (text: string) => void | string;
   onChange: (text: string) => void | string;
   onClear: () => void;
   containerStyle?: ViewStyle;
-  inputStyle: TextStyle;
+  inputStyle?: TextStyle;
   placeholder?: string;
   placeholderTextColor?: string;
   iconColor?: string;
@@ -91,7 +91,6 @@ CustomSearchBar.defaultProps = {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 15,
-    marginHorizontal: 15,
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: Platform.OS === 'android' ? 0 : 8,
